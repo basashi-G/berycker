@@ -1,21 +1,14 @@
-# ssh dir setting
-mkdir .ssh
-touch .ssh/authorized_keys
-chmod 700 .ssh
-chmod 600 .ssh/authorized_keys
+SSH {pub_key}
 
-# ssh config setting
-sudo sh -c "echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config"
-sudo sh -c "echo 'PermitRootLogin no' >> /etc/ssh/sshd_config"
-sudo sh -c "echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config"
+# sshd config setting
+ADD "PubkeyAuthentication yes"  /etc/ssh/sshd_config 
+ADD "PermitRootLogin no" /etc/ssh/sshd_config
+ADD "PasswordAuthentication no" /etc/ssh/sshd_config
 
-# key setting
-echo {pub_key} >> .ssh/authorized_keys
 
 # update
-sudo apt update
-sudo apt upgrade -y
-sudo raspi-config nonint do_update
+RUN sudo apt update
+RUN sudo apt upgrade -y
+RUN sudo raspi-config nonint do_update
 
-sudo shudown now
 

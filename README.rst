@@ -1,8 +1,9 @@
 berycker
 ========
 
-Docker-like tool to set up a headless RaspberryPi or linux
+Docker-like tool to set up a headless RaspberryPi
 ヘッドレスでのRaspberryPiやlinuxの初期設定をdockerライクにする、コマンドラインツールです。
+現時点ではラズパイのみ対応
 
 install
 =======
@@ -11,7 +12,7 @@ install
     pip install berycker
 
 
-使い方
+コマンド一覧
 ======
 
 init
@@ -35,16 +36,69 @@ beryckerfileを読み込んでマシンの初期設定を行います。
 
 beryckerfile
 ============
-shファイルと同じように書けば問題ないです。#でコメントアウトできます。
-shファイルと違うのは、中括弧で囲むことで変数を定義できることです。
+DockerFileにインスパイアされたものなので、Dockerを使ったことがある方は親しみやすいでしょう。
+基本的には関数を実行していく順に並べるだけです。
+関数を先頭に書き、スペースに続けて引数を書きます。
+**関数名は大文字で書くことに注意してください。**
+関数は5つあります。
+::
+
+    FUNCTION_NAME arg
+
+beryckerfileの例はexampleディレクトリにあります。
+
+RUN
+***
+::
+
+    RUN command
+
+この関数は任意のコマンドを実行します。
+
+ADD
+***
+::
+
+    ADD "string" path
+
+この関数は任意の文字列を既存のファイルに書き込みます。
+絶対パスとホームディレクトリに対しての相対パスをpathに入力できます。
+**任意の文字列はダブルクォーテーションで囲む必要があることに注意してください。**
+
+IP
+**
+::
+
+    IP ip_adress
+
+この関数はIPアドレスを任意のIPアドレスに固定します。
+
+SSH
+***
+::
+
+    SSH pub_key
+
+この関数はSSHの公開鍵をマシンに登録します。公開鍵はテキストファイルに保存するべきではないので、以下の変数を使うことをおすすめします。
+
+HOSTNAME
+********
 
 ::
 
-    # ssh key setting
-    echo {pub_key} >> .ssh/authorized_keys
+    HOSTNAME any_name
+
+この関数は任意のホスト名をマシンに割り当てます。
+
+変数
+****
+::
+
+    SSH {pub_key}
 
 パスワードなどのファイルに記入することがはばかられる値や、マシンごとに値が異なる所（ホスト名など）を変数として定義できます。
 beryckerfile内で定義した変数は、ビルドするときにインタラクティブに入力できます。
 
-beryckerfileの例はexampleディレクトリにあります。
+
+
 
