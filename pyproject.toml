@@ -1,7 +1,11 @@
 [tool.poetry]
 name = "berycker"
-version = "0.1.4"
-description = ""
+version = "0.1.5"
+description = "Docker-like tool to set up a headless RaspberryPi or linux"
+readme = "README.rst"
+license = "MIT"
+repository = "https://github.com/basashi-G/berycker"
+homepage = "https://probio.basashi.tech/introduction/"
 authors = ["Tomoki Murayama <muratomo.0205@gmail.com>"]
 
 [tool.poetry.dependencies]
