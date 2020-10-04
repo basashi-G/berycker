@@ -1,0 +1,5 @@
+*.lock
+.venv
+.vscode
+*.egg-info
+dist
