@@ -3,6 +3,11 @@
 
 ヘッドレスでのRaspberryPiやlinuxの初期設定をdockerライクにする、コマンドラインツールです。
 
+# install
+```
+pip install berycker
+```
+
 # 使い方
 ## init
 ```
